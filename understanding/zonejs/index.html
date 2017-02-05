@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Learning ZoneJS</title>
+	</head>
+	<body>
+		<h1>Open your console!</h1>
+		//https://cdnjs.cloudflare.com/ajax/libs/zone.js/0.7.6/zone.min.js
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/zone.js/0.7.6/zone.min.js"></script>
+		<script>
+			//run this to learn how JS gets executed
+
+			var foo = function(){ console.log("foo"); };
+			var bar = function(){ console.log("bar"); };
+			var baz = function(){ console.log("baz"); };
+
+			//sync
+			var sync = () => {
+
+				var start,
+				    time = 0;
+				    timer = () => { return performance ? performance.now() : Date.now(); };
+
+				// start timer
+				start = timer();
+				foo();
+				bar();
+				baz();
+				// stop timer
+				time = timer() - start;
+				// log time in ms
+				console.log("sync: " + Math.floor(time*100) / 100 + 'ms'); 
+
+			}
+
+			sync();
+			//End Sync
+
+			//async
+			var async = () => {
+
+				var start,
+				    time = 0;
+				    timer = () => { return performance ? performance.now() : Date.now(); };
+
+				function doSomething() {
+				  console.log('Async task');
+				}
+
+				// start timer
+				start = timer();
+				foo();
+				setTimeout(doSomething, 2000); 
+				bar();
+				baz();
+				// stop timer
+				time = timer() - start;
+				// log time in ms
+				console.log("async: " + Math.floor(time*100) / 100 + 'ms'); 
+			}
+
+			async();
+			//End aSync
+
+			//zone
+			function main() {
+
+				var start,
+				    time = 0;
+				    timer = () => { return performance ? performance.now() : Date.now(); };
+
+				function doSomething() {
+				  console.log('Async task');
+				}
+
+				// start timer
+				start = timer();
+				foo();
+				setTimeout(doSomething, 2000); 
+				bar();
+				baz();
+				// stop timer
+				time = timer() - start;
+				// log time in ms
+				console.log("async: " + Math.floor(time*100) / 100 + 'ms'); 
+			}
+			zone.run(main);
+			//end zone
+
+			//Todo add readme to zone js
+
+		</script>
+
+	</body>
+</html>
